@@ -1,13 +1,30 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CompetitionController;
+use App\Http\Controllers\SubmissionController;
+use App\Http\Controllers\UserController;
 
-Route::get('/',[DashboardController::class,'index']);
 
-Route::get('/products', [ProductController::class,'index']);
-Route::get('/addProduct', [ProductController::class,'create']);
-Route::post('/createProduct', [ProductController::class,'store']);
-Route::get('/editProduct/{id}', [ProductController::class,'edit']);
-Route::put('/updateProduct/{id}',[ProductController::class, 'update']);
+
+
+// ✅ Home → Dashboard
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+// ✅ Books CRUD (resourceful routes)
+Route::resource('books', BookController::class);
+
+
+Route::resource('orders', OrderController::class);
+
+
+Route::resource('competitions', CompetitionController::class);
+
+
+Route::resource('submissions', SubmissionController::class);
+
+
+Route::resource('users', UserController::class)->only(['index','edit','update','destroy']);
